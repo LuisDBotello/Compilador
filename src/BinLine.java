@@ -410,7 +410,9 @@ public final class BinLine {
         return binary;
     }
     //Algunos OpCode indican que se les sume el valor del registro al OpCode. Ej PUSH BX
-    //Este método suma el OpCode de la instrucción con el OpCode del registro implicado
+
+
+
     String OpCodePlusReg(String OpCode, String Reg) {
         if (OpCode == null || Reg == null) {
             System.err.println("Error: OpCode o Reg es null");
