@@ -5,9 +5,9 @@ int a = 5;
 String MSG1 = "Luis";
 String MSG2 = "Daniel";
 
-y = 2*(x+4)+a;
+y = 2*(x+4)+a+a;
 print(y);
-if ((2*(x+4)) < 200){
+if ((2*(x+4)+a) < (200+(a*a)-1)){
    x=3;
    print(MSG1);
 } else {
@@ -16,5 +16,3 @@ if ((2*(x+4)) < 200){
 }
    print(x);
 $$
-
-

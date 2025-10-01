@@ -101,6 +101,7 @@ public class Parser {
                             case PAROPEN:
                                 eat(PAROPEN); 
                                 CALCULO(); 
+                                System.out.println("Despues de calculo en IF");
                                 eat(PARCLOSE);
                                 BLOQUE();
                                 handleElse();
@@ -111,9 +112,9 @@ public class Parser {
                         } 
                         break;
                     case PAROPEN:
-                        eat(PAROPEN); 
-                        CALCULO(); 
-                        eat(PARCLOSE); 
+                        eat(PAROPEN);
+                        CALCULO(); //1
+                        eat(PARCLOSE);
                         eat(COMP);
                         switch (this.Tok) {
                             case ID:
@@ -127,7 +128,8 @@ public class Parser {
                                 break;
                             case PAROPEN:
                                 eat(PAROPEN); 
-                                CALCULO(); 
+                                CALCULO(); //200+a)
+                                eat(PARCLOSE);
                                 eat(PARCLOSE);
                                 BLOQUE();
                                 handleElse();
@@ -196,6 +198,7 @@ public class Parser {
     }
 
     public void CALCULO() {
+        System.out.println("Entrando a CALCULO con token: " + this.Tok + " " + Words[this.Tok]);
         switch (this.Tok) {
             case ID:
             case FLOAT:
@@ -206,6 +209,17 @@ public class Parser {
                 eat(PAROPEN); 
                 CALCULO(); 
                 eat(PARCLOSE); 
+                if (this.Tok == OPER) {
+                    eat(OPER);
+                    if (this.Tok == PAROPEN) {
+                        System.out.println("Entrando a CALCULO despues de parentesis");
+                        eat(PAROPEN); 
+                        CALCULO(); 
+                        eat(PARCLOSE); 
+                    } else if (this.Tok == ID || this.Tok == FLOAT || this.Tok == NUM) {
+                        eat(this.Tok);
+                    }
+                }
                 break;
             default:
                 break;
@@ -220,7 +234,8 @@ public class Parser {
                     break;
                 case PAROPEN:
                     eat(PAROPEN); 
-                    CALCULO();
+                    CALCULO(); //2
+                    System.out.println("Saliendo de x+4");
                     eat(PARCLOSE); 
                     break;
                 default:
@@ -236,6 +251,7 @@ public class Parser {
             return;
         }
         if (this.Tok == tok) {
+            System.out.println("Token reconocido: " + this.Tok + " " + Words[this.Tok]);
             Avanzar();
         } else {
             Error();
