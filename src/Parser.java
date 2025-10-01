@@ -101,7 +101,6 @@ public class Parser {
                             case PAROPEN:
                                 eat(PAROPEN); 
                                 CALCULO(); 
-                                System.out.println("Despues de calculo en IF");
                                 eat(PARCLOSE);
                                 BLOQUE();
                                 handleElse();
@@ -113,7 +112,7 @@ public class Parser {
                         break;
                     case PAROPEN:
                         eat(PAROPEN);
-                        CALCULO(); //1
+                        CALCULO();
                         eat(PARCLOSE);
                         eat(COMP);
                         switch (this.Tok) {
@@ -234,8 +233,7 @@ public class Parser {
                     break;
                 case PAROPEN:
                     eat(PAROPEN); 
-                    CALCULO(); //2
-                    System.out.println("Saliendo de x+4");
+                    CALCULO();
                     eat(PARCLOSE); 
                     break;
                 default:
