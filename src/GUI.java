@@ -1,8 +1,5 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.AdjustmentEvent;
-
-
 import java.awt.event.AdjustmentListener;
 import java.util.concurrent.atomic.AtomicBoolean;
 

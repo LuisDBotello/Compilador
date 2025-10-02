@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.function.BinaryOperator;
 
 public final class BinLine {
 
