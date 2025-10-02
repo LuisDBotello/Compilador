@@ -1,0 +1,9 @@
+Mejoras futuras:
+
+1.- Incluir For, While, Do-While
+2.- Incluir Variable de bloque
+3.- Operaciones con punto flotante
+4.- Máquina de ejecución
+5.- Mejorar diseño de GUI
+6.- Implementar uso métodos
+7.- Optimizar ensamblador

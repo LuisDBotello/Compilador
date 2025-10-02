@@ -116,41 +116,45 @@ public class GUI extends JFrame {
             jLabel2.setForeground(sinErrores ? Color.GREEN : Color.RED);
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 20));
+        //CONSTANTES
+        int JPANELSIZE =12;
+        String FONT = java.awt.Font.MONOSPACED;
+
+        jLabel3.setFont(new java.awt.Font(FONT, 1, 20));
         jLabel3.setForeground(new Color(204, 204, 204));
         jLabel3.setText("Seleccione el archivo .txt con el código");
 
         jTextArea1.setBackground(new Color(204, 204, 204));
-        jTextArea1.setColumns(12);
-        jTextArea1.setRows(5);
-        jTextArea1.setFont(new java.awt.Font("Segoe UI", 1, 16));
+        jTextArea1.setColumns(18);
+        jTextArea1.setRows(0);
+        jTextArea1.setFont(new java.awt.Font(FONT, 1, JPANELSIZE));
         jScrollPane3.setViewportView(jTextArea1);
 
         jTextArea2.setBackground(new Color(204, 204, 204));
         jTextArea2.setColumns(5);
         jTextArea2.setRows(5);
         jTextArea2.setEditable(false);
-        jTextArea2.setFont(new java.awt.Font("Segoe UI", 1, 16));
+        jTextArea2.setFont(new java.awt.Font(FONT, 1, JPANELSIZE));
         jScrollPane1.setViewportView(jTextArea2);
 
         jTextArea3.setBackground(new Color(204, 204, 204));
-        jTextArea3.setFont(new java.awt.Font("Segoe UI", 1, 16));
-        jTextArea3.setColumns(12);
+        jTextArea3.setFont(new java.awt.Font(FONT, 1, JPANELSIZE));
+        jTextArea3.setColumns(5);
         jTextArea3.setRows(5);
 
         jTextArea4.setBackground(new Color(204, 204, 204));
-        jTextArea4.setFont(new java.awt.Font("Segoe UI", 1, 16));
-        jTextArea4.setColumns(7);
-        jTextArea4.setRows(5);
+        jTextArea4.setFont(new java.awt.Font(FONT, 1, JPANELSIZE));
+        jTextArea4.setColumns(1);
+        jTextArea4.setRows(0);
 
         jTextArea5.setBackground(new Color(204, 204, 204));
-        jTextArea5.setFont(new java.awt.Font("Segoe UI", 1, 16));
-        jTextArea5.setColumns(20);
+        jTextArea5.setFont(new java.awt.Font(FONT, 1, JPANELSIZE));
+        jTextArea5.setColumns(12);
         jTextArea5.setRows(5);
 
         jTextArea6.setBackground(new Color(204, 204, 204));
-        jTextArea6.setFont(new java.awt.Font("Segoe UI", 1, 16));
-        jTextArea6.setColumns(6); 
+        jTextArea6.setFont(new java.awt.Font(FONT, 1, JPANELSIZE));
+        jTextArea6.setColumns(12); 
         jTextArea6.setRows(5);
 
         jPanelDual.setLayout(new BoxLayout(jPanelDual, BoxLayout.X_AXIS));
@@ -207,30 +211,30 @@ public class GUI extends JFrame {
         jTextArea6.revalidate();
         jTextArea6.repaint();
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        jLabel2.setFont(new java.awt.Font(FONT, 1, 14));
         jLabel2.setForeground(new Color(204, 204, 204));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        jLabel4.setFont(new java.awt.Font(FONT, 1, 14));
         jLabel4.setForeground(new Color(204, 204, 204));
         jLabel4.setText("SRC");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        jLabel5.setFont(new java.awt.Font(FONT, 1, 14));
         jLabel5.setForeground(new Color(204, 204, 204));
         jLabel5.setText("Tokens");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        jLabel6.setFont(new java.awt.Font(FONT, 1, 14));
         jLabel6.setForeground(new Color(204, 204, 204));
         jLabel6.setText("ASM");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        jLabel7.setFont(new java.awt.Font(FONT, 1, 14));
         jLabel7.setForeground(new Color(204, 204, 204));
         jLabel7.setText("Address");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        jLabel8.setFont(new java.awt.Font(FONT, 1, 14));
         jLabel8.setForeground(new Color(204, 204, 204));
         jLabel8.setText("Content");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        jLabel9.setFont(new java.awt.Font(FONT, 1, 14));
         jLabel9.setForeground(new Color(204, 204, 204));
         jLabel9.setText("Hex");
 

@@ -160,14 +160,10 @@ public class Assembly {
         }
         private static String generarASM(String expresionPosfija) {
             Stack<String> pila = new Stack<>();
-        
             String[] tokens = expresionPosfija.split(" ");
-            if (expresionPosfija.matches("\\d+|\\d+.\\d+|[A-Za-z]+\\d*")) {
-                CodigoASMEnsamblador.append("MOV AX, ").append(expresionPosfija).append("\n");
-                return "";
-            }
+
             for (String token : tokens) {
-                if (token.equals("")) break;
+                if (token.isBlank()) break;
                 if (isOperando(token.charAt(0))) {
                     pila.push(token);
                 } else if (isOperador(token.charAt(0))) {
