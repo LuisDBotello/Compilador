@@ -4,6 +4,8 @@ import javax.swing.JTextArea;
 public class Escaner {
     private final String[] PR = {"if", "print", "inputInt", "inputFloat", "inputString", "else"};
     private final String[] TIPO = {"int", "float", "String"};
+    private final String FOR = "for"; //22 (2025-02-10)
+    private final String INC = "++", DEC = "--"; //INC 23, DEC 24
     StringBuilder Scanned = new StringBuilder();
     boolean Error = false;    
     String TokensString;
@@ -41,6 +43,11 @@ public class Escaner {
                         tokens.add(k);
                         break;
                     }
+                }
+                if (palabra.equals(FOR)){
+                    esReservada = true;
+                    Scanned.append(palabra + "\n");
+                    tokens.add(22);
                 }
                 if (esReservada) continue;
     
@@ -119,7 +126,16 @@ public class Escaner {
                 Scanned.append(Token + "\n");
                 continue;
             }
-    
+            if (c == '+' && chars[i+1] == '+') {
+                tokens.add(23); 
+                i+=2;
+                Scanned.append(INC + "\n");
+            }
+            if (c == '-' && chars[i+1] == '-') {
+                tokens.add(24); 
+                i+=2;
+                Scanned.append(DEC + "\n");
+            }            
             if (c == '+' || c == '-' || c == '*' || c == '/') {
                 i++;
                 tokens.add(14);
