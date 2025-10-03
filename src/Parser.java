@@ -125,6 +125,7 @@ public class Parser {
                             case NUM:
                                 eat(this.Tok);  
                                 eat(PARCLOSE);
+                                eat(LLAVEOPEN);
                                 BLOQUE();
                                 handleElse();
                                 ESTATUTO();
@@ -134,6 +135,7 @@ public class Parser {
                                 CALCULO(); //200+a)
                                 eat(PARCLOSE);
                                 eat(PARCLOSE);
+                                eat(LLAVEOPEN);
                                 BLOQUE();
                                 handleElse();
                                 ESTATUTO();
@@ -181,57 +183,55 @@ public class Parser {
                     eat(ID);                     
 
                 eat(ASIG);
-            switch (this.Tok) {
-                case PAROPEN:
-                    eat(PAROPEN); CALCULO(); eat(PARCLOSE); //Ej. for(int i=0; (i-2)<10; i++){}
-                    break;
-                case NUM:
-                    eat(NUM);
-                    break;
-                case ID:
-                    eat(ID);
-                    break;
-                default:
-                    break;
-            }
-            eat(COMP); //Comparador que determina si entra al ciclo
-            switch (this.Tok) { //derecha del comparador Ej. for(int i=0; i  <  [(a-i)]|10|id  ;)
-                case PAROPEN:
-                    eat(PAROPEN); CALCULO(); eat(PARCLOSE); 
-                    break;
-                case NUM:
-                    eat(NUM);
-                    break;
-                case ID:
-                    eat(ID);
-                    break;
-                default:
-                    break;
-            }
-            eat(EOL); //Parte del step
-            eat(ID);
-            if(this.Tok == INC) eat(INC); //Ej. for(...i++)
-            if(this.Tok == DEC) eat(DEC); //Ej. for(...i--)
-            eat(PARCLOSE);
-            eat(LLAVEOPEN);
-            BLOQUE();
-
-
-
-
-
-
-            if(this.Tok == NUM)     {eat(this.Tok);} //Cuando int i = Numero inmediato
-            else if(this.Tok == ID)  eat(this.Tok);  //Cuando int i = Variable
-
-            eat(EOL); 
-            if (this.Tok == PAROPEN) {
-                eat(PAROPEN);
-
-            }
-            eat(this.Tok);
-
-        
+                switch (this.Tok) {
+                    case PAROPEN:
+                        eat(PAROPEN); CALCULO(); eat(PARCLOSE); //Ej. for(int i=0; (i-2)<10; i++){}
+                        break;
+                    case NUM:
+                        eat(NUM);
+                        break;
+                    case ID:
+                        eat(ID);
+                        break;
+                    default:
+                        break;
+                }
+                eat(EOL); 
+                switch (this.Tok) { //izquierda del comparador Ej. for(int i=0; i  <  [(a-i)]|10|id  ;)
+                    case PAROPEN:
+                        eat(PAROPEN); CALCULO(); eat(PARCLOSE); 
+                        break;
+                    case NUM:
+                        eat(NUM);
+                        break;
+                    case ID:
+                        eat(ID);
+                        break;
+                    default:
+                        break;
+                }
+                eat(COMP); //Comparador que determina si el ciclo sigue
+                switch (this.Tok) { //derecha del comparador Ej. for(int i=0; i <  [(a-i)]|10|id  ;)
+                    case PAROPEN:
+                        eat(PAROPEN); CALCULO(); eat(PARCLOSE); 
+                        break;
+                    case NUM:
+                        eat(NUM);
+                        break;
+                    case ID:
+                        eat(ID);
+                        break;
+                    default:
+                        break;
+                }
+                eat(EOL); //Parte del step
+                eat(ID);
+                if(this.Tok == INC) eat(INC); //Ej. for(...i++)
+                if(this.Tok == DEC) eat(DEC); //Ej. for(...i--)
+                eat(PARCLOSE);
+                eat(LLAVEOPEN);
+                BLOQUE();
+            
             case LLAVECLOSE:
                 if (llavebloque == 0) {
                     break;

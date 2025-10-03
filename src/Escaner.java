@@ -130,11 +130,13 @@ public class Escaner {
                 tokens.add(23); 
                 i+=2;
                 Scanned.append(INC + "\n");
+                continue;
             }
             if (c == '-' && chars[i+1] == '-') {
                 tokens.add(24); 
                 i+=2;
                 Scanned.append(DEC + "\n");
+                continue;
             }            
             if (c == '+' || c == '-' || c == '*' || c == '/') {
                 i++;
