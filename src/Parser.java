@@ -5,10 +5,11 @@ public class Parser {
 
     private final int IF = 0, PRINT = 1, INPUTINT = 2, INPUTFLOAT = 3, INPUTSTRING = 4, ELSE = 5, TYPEINT = 6, 
         TYPEFLOAT = 7, TYPESTRING = 8, ID = 9, FLOAT = 10, NUM = 11, COMP = 12, ASIG = 13, OPER = 14, 
-        LIM = 15, PAROPEN = 16, PARCLOSE = 17, LLAVEOPEN = 18, LLAVECLOSE = 19, EOL = 20, CADENA = 21;
+        LIM = 15, PAROPEN = 16, PARCLOSE = 17, LLAVEOPEN = 18, LLAVECLOSE = 19, EOL = 20, CADENA = 21, FOR = 22,
+        INC = 23, DEC = 24;
     public String[] Words = {"if", "print", "inputInt", "inputFloat", "inputString", "else", "\"Typeint\"", 
     "\"Typefloat\"", "\"TypeString\"", "ID", "FLOAT", "NUM", "comparator", "=", "operator", "\"$$\"", "(", 
-    ")", "{", "}", ";", "CADENA"};
+    ")", "{", "}", ";", "CADENA", "for", "++", "--"};
     Escaner Escaneado = new Escaner();
     int i = 0; // Apuntador de token
     int Tok;
@@ -94,6 +95,8 @@ public class Parser {
                             case NUM:
                                 eat(this.Tok);  
                                 eat(PARCLOSE);
+                                System.out.println("ME aaaa");
+                                eat(LLAVEOPEN);
                                 BLOQUE();
                                 handleElse();
                                 ESTATUTO();
@@ -102,6 +105,7 @@ public class Parser {
                                 eat(PAROPEN); 
                                 CALCULO(); 
                                 eat(PARCLOSE);
+                                eat(LLAVEOPEN);
                                 BLOQUE();
                                 handleElse();
                                 ESTATUTO();
@@ -121,6 +125,7 @@ public class Parser {
                             case NUM:
                                 eat(this.Tok);  
                                 eat(PARCLOSE);
+                                eat(LLAVEOPEN);
                                 BLOQUE();
                                 handleElse();
                                 ESTATUTO();
@@ -130,6 +135,7 @@ public class Parser {
                                 CALCULO(); //200+a)
                                 eat(PARCLOSE);
                                 eat(PARCLOSE);
+                                eat(LLAVEOPEN);
                                 BLOQUE();
                                 handleElse();
                                 ESTATUTO();
@@ -168,6 +174,64 @@ public class Parser {
                         break;
                 }  
                 break;
+            case FOR:
+                eat(FOR);
+                eat(PAROPEN);
+                if(this.Tok == TYPEINT) {
+                    eat(TYPEINT); eat(ID);   //Ej. for(int i...)   
+                } else if(this.Tok == ID)    //<-- Cuando for(i...) 'i' ya está declarada
+                    eat(ID);                     
+
+                eat(ASIG);
+                switch (this.Tok) {
+                    case PAROPEN:
+                        eat(PAROPEN); CALCULO(); eat(PARCLOSE); //Ej. for(int i=0; (i-2)<10; i++){}
+                        break;
+                    case NUM:
+                        eat(NUM);
+                        break;
+                    case ID:
+                        eat(ID);
+                        break;
+                    default:
+                        break;
+                }
+                eat(EOL); 
+                switch (this.Tok) { //izquierda del comparador Ej. for(int i=0; i  <  [(a-i)]|10|id  ;)
+                    case PAROPEN:
+                        eat(PAROPEN); CALCULO(); eat(PARCLOSE); 
+                        break;
+                    case NUM:
+                        eat(NUM);
+                        break;
+                    case ID:
+                        eat(ID);
+                        break;
+                    default:
+                        break;
+                }
+                eat(COMP); //Comparador que determina si el ciclo sigue
+                switch (this.Tok) { //derecha del comparador Ej. for(int i=0; i <  [(a-i)]|10|id  ;)
+                    case PAROPEN:
+                        eat(PAROPEN); CALCULO(); eat(PARCLOSE); 
+                        break;
+                    case NUM:
+                        eat(NUM);
+                        break;
+                    case ID:
+                        eat(ID);
+                        break;
+                    default:
+                        break;
+                }
+                eat(EOL); //Parte del step
+                eat(ID);
+                if(this.Tok == INC) eat(INC); //Ej. for(...i++)
+                if(this.Tok == DEC) eat(DEC); //Ej. for(...i--)
+                eat(PARCLOSE);
+                eat(LLAVEOPEN);
+                BLOQUE();
+            
             case LLAVECLOSE:
                 if (llavebloque == 0) {
                     break;
@@ -185,13 +249,13 @@ public class Parser {
     private void handleElse() {
         if (this.Tok == ELSE) {
             eat(ELSE);
+            eat(LLAVEOPEN);
             BLOQUE();
         }
     }
     
     
     public void BLOQUE() {
-        eat(LLAVEOPEN);
         llavebloque++;
         DECLARACION();
     }
