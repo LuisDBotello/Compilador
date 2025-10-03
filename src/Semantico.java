@@ -21,15 +21,21 @@ public class Semantico {
         this.Esc = esc;
     }
 
-    void Analizar(boolean Apto){
-        if (!Apto) return; // Si no pasó el análisis sintáctico, no se analiza el semántico
-        AnalizarScope();
-        AnalizarTypes();
-
+    void Analizar(JTextArea JTACodigoFuente, boolean Apto){
+        //if (!Apto) return; // Si no pasó el análisis sintáctico, no se analiza el semántico
         System.out.println("Analizando semánticamente...");
-        String CodigoFuente[] = this.Esc.Scanned.toString();
-        System.out.println(CodigoFuente);
 
+        AnalizarScope(JTACodigoFuente); // Analiza los scopes y las variables
+        //AnalizarTypes(); // Analiza los tipos de datos para que no haya type missmatch
+    }
+    private void AnalizarScope(JTextArea JTACodigoFuente) {
+        System.out.println("Analizando Scope...");
+        // Necesitamos linea a linea del codigo fuente separados por punto y coma
+        // y luego analizar cada linea para ver si hay variables duplicadas en el mismo scope
+        String[] Lineas = JTACodigoFuente.getText().split(";");
+        for (String string : Lineas) {
+            System.out.println(string);   
+        };
     }
     public ArrayList<String> GetDeclaraciones(Escaner Esc) {
         String[] Declaraciones = Esc.Scanned.toString().split("\n");
