@@ -366,10 +366,4 @@ public class GUI extends JFrame {
         java.awt.EventQueue.invokeLater(() -> new GUI().setVisible(true));
     }
 
-    // Declaraciones
-    private JButton jButton1, jButton2, jButton3, jButton4, jButton5, jButton6;
-    private JLabel jLabel1, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6, jLabel7, jLabel8, jLabel9;
-    private JPanel jPanel1, jPanelEscaner, jPanelParser, jPanelSemantico, jPanelDual;
-    private JScrollPane jScrollPane1, jScrollPane3, jScrollPaneDual;
-    private JTextArea jTextArea1, jTextArea2, jTextArea3, jTextArea4, jTextArea5, jTextArea6;
-}
+ 

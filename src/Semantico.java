@@ -16,7 +16,10 @@ public class Semantico {
         this.Par = par;
         this.Esc = esc;
     }
-
+    void AnalizarSemantico(JTextArea JTA) {
+        if (this.Par.isParserError() == true) return; // Si hay errores en el Parser, no se valida el Semántico
+        System.out.println("\n-- Análisis Semántico --");
+    }
     public ArrayList<String> GetDeclaraciones(Escaner Esc) {
         String[] Declaraciones = Esc.Scanned.toString().split("\n");
         String Codigo = "";
