@@ -1,10 +1,14 @@
 import java.util.ArrayList;
+import java.util.Stack;
+
 import javax.swing.JTextArea;
 
+//El nivel de abstacción se fue a los cielos en esta clase 
 public class Semantico {
 
     public static String regexNum = "^\\s*(int|float)\\s+[a-zA-Z_$][a-zA-Z0-9_$]*\\s*(=\\s*(-?\\d+(\\.\\d+)?)?)?\\s*$";
-    public static String regexSt = "^\\s*String\\s+[a-zA-Z_$][a-zA-Z0-9_$]*\\s*(=\\s*\".*\"\\s*)?\\s*$";;
+    public static String regexSt = "^\\s*String\\s+[a-zA-Z_$][a-zA-Z0-9_$]*\\s*(=\\s*\".*\"\\s*)?\\s*$";
+
     Escaner Esc = null;
     private Parser Par;
     public boolean ErrorSemantico = false;
@@ -17,6 +21,16 @@ public class Semantico {
         this.Esc = esc;
     }
 
+    void Analizar(boolean Apto){
+        if (!Apto) return; // Si no pasó el análisis sintáctico, no se analiza el semántico
+        AnalizarScope();
+        AnalizarTypes();
+
+        System.out.println("Analizando semánticamente...");
+        String CodigoFuente[] = this.Esc.Scanned.toString();
+        System.out.println(CodigoFuente);
+
+    }
     public ArrayList<String> GetDeclaraciones(Escaner Esc) {
         String[] Declaraciones = Esc.Scanned.toString().split("\n");
         String Codigo = "";
@@ -39,31 +53,30 @@ public class Semantico {
         return Dec;
     }
 
-    public TablaDeSimbolos GetTablaDeSimbolos(ArrayList<String> declaraciones) {
-    tds = new TablaDeSimbolos();
+    public TablaDeSimbolos GetVariablesGlobales(ArrayList<String> declaraciones) {
+    tds = new TablaDeSimbolos(); 
+    Stack<String> Scopes = new Stack<>(); // Pila para manejar los alcances
+    
     
     for (String declaracion : declaraciones) {
-        System.out.println("Procesando: " + declaracion); // 🔍 Verifica orden
+        System.out.println("Procesando: " + declaracion); 
         
         String[] partes = declaracion.trim().split("\\s+");
         if (partes.length < 2) continue; // Evita errores en líneas vacías
         
         String Tipo = partes[0];
         String Nombre = partes[1];
-        String Alcance = "1";  
+        String Alcance = "0";  
         String Valor = "0";  
 
         if (Tipo.equals("String")) Valor = "\'\'";
         if (Tipo.equals("float")) Valor = "0.0";
-
-        if (partes.length > 3 && partes[2].equals("=")) {
+        if (partes.length > 3 && partes[2].equals("=")) 
             Valor = partes[3];
-        }
 
         Simbolo S = new Simbolo(Nombre, Tipo, Integer.parseInt(Alcance), Valor.replaceAll("\"", ""));
         tds.InsertarSimbolo(S);
     }
-    
     return tds;
 }
 public void MostrarTablaDeSimbolos() {
@@ -103,7 +116,7 @@ public void MostrarTablaDeSimbolos() {
         Codigo = Codigo.replaceAll("\\s*\\$\\$\\s*", "").trim().replace("\"\"", "\"");
         Codigo = Codigo.replaceAll("\\(\"[A-Za-z0-9]+\"\\)", "");
         
-        String[] RemoveWords = {"if", "else", "print", "inputInt", "inputFloat", "inputString"};
+        String[] RemoveWords = {"if", "else", "print", "inputInt", "inputFloat", "inputString", "for"};
         for (int i = 0; i < RemoveWords.length; i++) {
             Codigo = Codigo.replace(RemoveWords[i], "").trim();
         }        
@@ -124,7 +137,7 @@ public void MostrarTablaDeSimbolos() {
         }
 
         TablaDeSimbolos tds = new TablaDeSimbolos();
-        tds = GetTablaDeSimbolos(GetDeclaraciones(this.Esc));
+        tds = GetVariablesGlobales(GetDeclaraciones(this.Esc));
         //tds.MostrarSimbolos(this);
         System.out.println("\n-EXPRESIONES MATEMATICAS-");
         for (String expr : Expresion) {

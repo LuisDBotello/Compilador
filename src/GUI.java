@@ -87,6 +87,7 @@ public class GUI extends JFrame {
         jButton4.setText("Run Semántico");
         jButton4.addActionListener(evt -> {
             Semantico Sem = new Semantico(parser, escaner);
+            Sem.Analizar(sinErrores); 
             sinErrores = Sem.ValidarSemantico(jTextArea1);
             Sem.MostrarTablaDeSimbolos();
             actualizarIndicador(jPanelSemantico, sinErrores);
