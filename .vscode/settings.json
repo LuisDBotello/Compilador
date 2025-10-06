@@ -5,11 +5,13 @@
         "lib/**/*.jar"
     ],
     "java.debug.settings.onBuildFailureProceed": true,
-    "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-24",
+    "java.jdt.ls.java.home": "C:\\Program Files\\JAVA\\jdk-24",
     "java.configuration.runtimes": [
+
         {
             "name": "JavaSE-24",
-            "path": "C:\\Program Files\\Java\\jdk-24"
+            "path": "C:\\Program Files\\JAVA\\jdk-24"
         }
-    ]
+    ],
+    "java.configuration.detectJdksAtStart": false
 }

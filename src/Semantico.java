@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Stack;
-
 import javax.swing.JTextArea;
 
 //El nivel de abstacción se fue a los cielos en esta clase 
@@ -33,9 +32,10 @@ public class Semantico {
         // Necesitamos linea a linea del codigo fuente separados por punto y coma
         // y luego analizar cada linea para ver si hay variables duplicadas en el mismo scope
         String[] Lineas = JTACodigoFuente.getText().split(";");
-        for (String string : Lineas) {
+
+        for (String string : Lineas) 
             System.out.println(string);   
-        };
+        
     }
     public ArrayList<String> GetDeclaraciones(Escaner Esc) {
         String[] Declaraciones = Esc.Scanned.toString().split("\n");
