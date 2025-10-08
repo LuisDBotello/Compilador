@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Stack;
 import javax.swing.JTextArea;
 
 //El nivel de abstacción se fue a los cielos en esta clase 
@@ -31,13 +30,39 @@ public class Semantico {
         System.out.println("Analizando Scope...");
         // Necesitamos linea a linea del codigo fuente separados por punto y coma
         // y luego analizar cada linea para ver si hay variables duplicadas en el mismo scope
-        String[] Lineas = JTACodigoFuente.getText().split(";");
-
+        String[] Lineas = JTACodigoFuente.getText().split(";|\n");
+        //Limpiar filas en blanco
         for (String string : Lineas) 
-            System.out.println(string);   
+            string = string.trim();   
         
+        int ScopePointer = 0;
+        for (String linea: Lineas){
+            if(linea.isBlank()) continue;
+
+            if (linea.contains("}"))
+                ScopePointer-= CharinString('}', linea); //Ejemplo: cuando una linea tiene '}}' decrementa en 2
+            if (linea.contains("if") || linea.contains("for") || linea.contains("else")) 
+                ScopePointer++;
+            //if (esDeclaracion) {
+                //Tabla de simbolos.add(Variable, Tipo, Valor, Bloque)
+            //}
+            
+
+        }
+
+
+    }   
+    
+    
+    //Cuantas veces se repite un char en un String
+    private int CharinString(Character c, String st){
+        int contador = 0;
+        for (char c1 : st.toCharArray()) 
+            if (c.equals(c1)) 
+                contador++;
+        return contador;
     }
-    public ArrayList<String> GetDeclaraciones(Escaner Esc) {
+    /*public ArrayList<String> GetDeclaraciones(Escaner Esc) {              código a reevaluar
         String[] Declaraciones = Esc.Scanned.toString().split("\n");
         String Codigo = "";
     
@@ -58,7 +83,10 @@ public class Semantico {
         }
         return Dec;
     }
+        */
+    //---------UTILERÍA-----------
 
+    /* 
     public TablaDeSimbolos GetVariablesGlobales(ArrayList<String> declaraciones) {
     tds = new TablaDeSimbolos(); 
     Stack<String> Scopes = new Stack<>(); // Pila para manejar los alcances
@@ -273,4 +301,5 @@ public void MostrarTablaDeSimbolos() {
     public void setVariableDuplicada(boolean variableDuplicada) {
         VariableDuplicada = variableDuplicada;
     } 
+    */
 }
