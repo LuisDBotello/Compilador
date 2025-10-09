@@ -46,6 +46,7 @@ public class Semantico {
                 ScopePointer-= CharInString('}', linea); //Ejemplo: cuando una linea tiene '}}' decrementa en 2
             if (linea.contains("if") || linea.contains("for") || linea.contains("else")) 
                 ScopePointer++;
+
             if (contieneDeclaracion(linea)){
                 System.out.println("Declaracion en scope " + ScopePointer + ": " + linea.trim() );
                 String Tipo = linea.substring(linea.indexOf("int"), linea.length()-1); 
