@@ -3,17 +3,17 @@ public class Simbolo {
     private String Nombre = "";
     private String Tipo = "";
     private String Valor = "";
-    private int Alcance = 0;
+    private int Scope = 0;
     
-    public Simbolo(String nombre, String tipo, int alcance, String valor) {
-        Nombre = nombre;
-        Tipo = tipo;
-        Alcance = alcance;
-        Valor = valor;
+    public Simbolo(String nombre, String tipo, int scope, String valor) {
+        this.Nombre = nombre;
+        this.Tipo = tipo;
+        this.Scope = scope;
+        this.Valor = valor;
     }
 
     public String toString(){
-        return Nombre + " " + Tipo + " " + Alcance + " " + Valor;
+        return Nombre + " " + Tipo + " " + Scope + " " + Valor;
     }
     public String getNombre() {
         return Nombre;
@@ -27,11 +27,11 @@ public class Simbolo {
     public void setTipo(String tipo) {
         Tipo = tipo;
     }
-    public int getAlcance() {
-        return Alcance;
+    public int getScope() {
+        return this.Scope;
     }
-    public void setAlcance(int alcance) {
-        Alcance = alcance;
+    public void setScope(int scope) {
+        this.Scope = scope;
     }
     public String getValor() {
         return Valor;

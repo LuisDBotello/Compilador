@@ -14,6 +14,9 @@ public class Semantico {
     ArrayList<String> Instrucciones = new ArrayList<>(); 
     TablaDeSimbolos tds;
     
+
+
+    
     public Semantico(Parser par, Escaner esc){
         this.Par = par;
         this.Esc = esc;
@@ -38,16 +41,18 @@ public class Semantico {
         int ScopePointer = 0;
         for (String linea: Lineas){
             if(linea.isBlank()) continue;
-
+            System.out.println("Scope: " + ScopePointer + " | " + linea);
             if (linea.contains("}"))
-                ScopePointer-= CharinString('}', linea); //Ejemplo: cuando una linea tiene '}}' decrementa en 2
+                ScopePointer-= CharInString('}', linea); //Ejemplo: cuando una linea tiene '}}' decrementa en 2
             if (linea.contains("if") || linea.contains("for") || linea.contains("else")) 
                 ScopePointer++;
-            //if (esDeclaracion) {
-                //Tabla de simbolos.add(Variable, Tipo, Valor, Bloque)
-            //}
-            
-
+            if (contieneDeclaracion(linea)){
+                System.out.println("Declaracion en scope " + ScopePointer + ": " + linea.trim() );
+                String Tipo = linea.substring(linea.indexOf("int"), linea.length()-1); 
+                Simbolo foo = new Simbolo();
+                
+                
+            }
         }
 
 
@@ -55,13 +60,19 @@ public class Semantico {
     
     
     //Cuantas veces se repite un char en un String
-    private int CharinString(Character c, String st){
+    private int CharInString(Character c, String st){
         int contador = 0;
         for (char c1 : st.toCharArray()) 
             if (c.equals(c1)) 
                 contador++;
         return contador;
     }
+
+    private boolean contieneDeclaracion(String linea) {
+        return linea.matches("\\s*(int|float|String)\\s+[a-zA-Z_$][a-zA-Z0-9_$]*\\s*(=\\s*.*)?\\s*");
+    }
+
+
     /*public ArrayList<String> GetDeclaraciones(Escaner Esc) {              código a reevaluar
         String[] Declaraciones = Esc.Scanned.toString().split("\n");
         String Codigo = "";
@@ -302,4 +313,22 @@ public void MostrarTablaDeSimbolos() {
         VariableDuplicada = variableDuplicada;
     } 
     */
+    private Simbolo GetDeclaracion(String linea, int ScopePointer) {
+        char[] chars = linea.toCharArray();
+        int i = 0; String Tipo = "", Nombre = "", Valor = "", palabra="";
+        while (i < chars.length){
+            palabra = palabra + chars[i];
+            if (palabra.contains("int") || palabra.contains("float") || palabra.contains("String")){
+                Tipo = palabra;
+                System.out.println("Tipo: " + Tipo);
+                palabra = "";
+            }
+            i++;
+            if () {
+                
+            }
+        }
+
+    }
 }
+
