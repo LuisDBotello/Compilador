@@ -48,10 +48,12 @@ public class Semantico {
                 ScopePointer++;
 
             if (contieneDeclaracion(linea)){
+                if(linea.contains("int"))
+                if(linea.contains("float"))
+                if(linea.contains("String"))
                 System.out.println("Declaracion en scope " + ScopePointer + ": " + linea.trim() );
-                String Tipo = linea.substring(linea.indexOf("int"), linea.length()-1); 
-                Simbolo foo = new Simbolo();
-                
+                Simbolo S = this.GetDeclaracion(linea, ScopePointer);
+                System.out.println("Variable creada: Tipo: "+S.getTipo() + "  Nombre: "+S.getNombre() + "  Valor: "+S.getValor()+"  Scope: "+S.getScope());
                 
             }
         }
@@ -317,19 +319,45 @@ public void MostrarTablaDeSimbolos() {
     private Simbolo GetDeclaracion(String linea, int ScopePointer) {
         char[] chars = linea.toCharArray();
         int i = 0; String Tipo = "", Nombre = "", Valor = "", palabra="";
+
         while (i < chars.length){
             palabra = palabra + chars[i];
+            if (palabra.contains("int")){
+                Tipo = "int";
+                palabra = "";
+                while(i < chars.length){
+                    if (chars[i] == ' ' || chars[i] == '='){
+                        i++;
+                        continue;
+                    }
+                    i++;
+                }}
+
+
+
             if (palabra.contains("int") || palabra.contains("float") || palabra.contains("String")){
                 Tipo = palabra;
                 System.out.println("Tipo: " + Tipo);
                 palabra = "";
             }
             i++;
-            if () {
-                
+            if ((i+1) >= chars.length){
+                Simbolo S = new Simbolo(Nombre, Tipo, ScopePointer, null);
+                return S;
+            }
+            if (chars[i+1] == '=') {
+                Nombre = palabra.trim();
+                System.out.println("Nombre: " + Nombre);
+                palabra = "";
+            }
+            if (chars[i] == ';' || chars[i] == '\n' || i == chars.length-1){
+                Valor = palabra.trim().replace(";", "").replace("\n", "").replace("=", "").trim();
+                System.out.println("Valor: " + Valor);
+                break;
             }
         }
-
+        Simbolo Var = new Simbolo(Nombre, Tipo, ScopePointer, Valor);
+        return Var;
     }
 }
 
