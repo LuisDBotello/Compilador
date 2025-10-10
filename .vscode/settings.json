@@ -1,6 +1,8 @@
 {
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
+    "css.lint.vendorPrefix": "ignore",
+
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],

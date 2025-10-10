@@ -1,0 +1,45 @@
+SplitPane{
+    -fx-min-width: 1440px;
+    -fx-min-height: 900px;
+    -fx-background-color: #001c02;
+    -fx-padding: 20;
+}
+SplitPane .divider {
+    -fx-padding: 0;
+    -fx-background-color: #007a0a00;
+    -fx-border-width: 0;
+}
+#VBoxFiles {
+    -fx-background-color: #001c02;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-pref-width: 250px;
+}
+#VBoxEditor {
+    -fx-background-color: #001c02;
+    -fx-text-fill: #f2fff5;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-translate-y: -10px;
+}
+VBox Label{
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f2fff5;
+    -fx-padding: 5 0 5 0;
+}
+VBox TextArea{
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-color: #f2f2f2;
+    -fx-border-width: 0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+    -fx-text-fill: #34495e;
+
+    -fx-background-color: #eeeeee;
+    -fx-pref-height: 600px;
+}
