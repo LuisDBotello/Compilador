@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.AdjustmentListener;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import javax.swing.*;
 
 public class GUI extends JFrame {
@@ -87,8 +86,8 @@ public class GUI extends JFrame {
         jButton4.setText("Run Semántico");
         jButton4.addActionListener(evt -> {
             Semantico Sem = new Semantico(parser, escaner);
-            sinErrores = Sem.ValidarSemantico(jTextArea1);
-            Sem.MostrarTablaDeSimbolos();
+            Sem.Analizar(jTextArea1, sinErrores);
+            //sinErrores = Sem.ValidarSemantico(jTextArea1);
             actualizarIndicador(jPanelSemantico, sinErrores);
             jLabel2.setForeground(sinErrores ? Color.GREEN : Color.RED);
             jLabel2.setText(sinErrores ? "Sin errores" : "Error en el Semántico");
